@@ -14,6 +14,10 @@
 
 #include "StenorBackend.h"
 
+// NOTE that binary operations are performed here by coverting each byte to a binary STRING "xxxxxxxx", but it would be more a litle more efficient
+// to keep it as a char format and subtract z%4 from the value, then add the 2-bit data to the char as a value from 0-3. But I've kept it at string format
+// so that the operations are clear and easily understandable. This is, after all, a hobby project.
+
 // non-exported functions
 
 //DONE
