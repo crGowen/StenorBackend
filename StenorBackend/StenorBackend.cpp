@@ -142,7 +142,7 @@ std::string ConvertFileToBinary(std::string inputFile)
 	return bitStr;
 }
 
-//UNTESTED
+//DONE
 void OutputBinaryToImg(std::string bin, std::string containerFile, std::string outputFile)
 {
 	// output image containing a text message
@@ -190,6 +190,30 @@ void OutputBinaryToImg(std::string bin, std::string containerFile, std::string o
 		}
 	}
 	cv::imwrite(outputFile, container);
+}
+
+void OutputBinaryToWav(std::string bin, std::string containerFile, std::string outputFile)
+{
+	wavio::WavFileData wfile;
+	wfile.ConstructFromFinstream(containerFile);
+
+	int textStep = 0;
+	std::bitset<16> x;
+	std::string tempBinStr;
+
+	for (int i = 0; i < wfile.head.chunkSize / 2; i++)
+	{
+		x = wfile.shortDataArray[i];
+		tempBinStr = x.to_string();
+		tempBinStr = tempBinStr.substr(0, 14) + bin.substr(textStep % bin.length(), 2);
+		x = std::bitset< 16 >(tempBinStr);
+		wfile.shortDataArray[i] = x.to_ulong();
+		textStep = textStep + 2;
+	}
+
+	wavio::WavFileData::OutputWavObjToFile(wfile, outputFile);
+
+	wfile.DestroyDynamicVars();
 }
 
 // exported functions
