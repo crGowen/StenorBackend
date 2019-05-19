@@ -32,13 +32,13 @@ char ConvertBinStringToChar(std::string bin)
 //DONE
 void ConvertBinaryToFile(std::string binString)
 {
-	// convert binary string to text message
-	std::string buildStr(binString.length() / 8, '2');
+	int size = std::bitset<32>(binString.substr(0, 32)).to_ulong();
 
+	std::string buildStr(size + 10, '2');
 
 	for (int i = 0; i < buildStr.length(); i++)
 	{
-		buildStr[i] = ConvertBinStringToChar(binString.substr(i * 8, 8));
+		buildStr[i] = ConvertBinStringToChar(binString.substr(32 + i * 8, 8));
 	}
 	std::string fileType = buildStr.substr(0, 10);
 	std::string fileTypeCleaned = "";
@@ -85,6 +85,27 @@ std::string ReadBinaryFromImg(std::string containerFile)
 		}
 	}
 
+	return buildStr;
+}
+
+//DONE
+std::string ReadBinaryFromWav(std::string containerFile)
+{
+	wavio::WavFileData wfile;
+	wfile.ConstructFromFinstream(containerFile);
+
+	std::string buildStr(wfile.head.chunkSize, '2');
+	std::string tempBinStr = "";
+	std::bitset<16> x;
+
+	for (int i = 0; i < wfile.head.chunkSize / 2; i++)
+	{
+		x = wfile.shortDataArray[i];
+		tempBinStr = x.to_string();
+		buildStr.replace(i*2,2, tempBinStr.substr(14, 2));
+	}
+	
+	wfile.DestroyDynamicVars();
 	return buildStr;
 }
 
@@ -139,7 +160,9 @@ std::string ConvertFileToBinary(std::string inputFile)
 		x = read[i];
 		bitStr.replace(i * 8, 8, x.to_string());
 	}
-	return bitStr;
+	std::bitset<32> y;
+	y = size;
+	return y.to_string() + bitStr;
 }
 
 //DONE
@@ -192,6 +215,7 @@ void OutputBinaryToImg(std::string bin, std::string containerFile, std::string o
 	cv::imwrite(outputFile, container);
 }
 
+//DONE
 void OutputBinaryToWav(std::string bin, std::string containerFile, std::string outputFile)
 {
 	wavio::WavFileData wfile;
@@ -223,16 +247,42 @@ int EncodeToContainer(const char* inputFileInterOp, const char* containerFileInt
 {
 	std::string inputFile = inputFileInterOp;
 	std::string containerFile = containerFileInterOp;
-	OutputBinaryToImg(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.png");
+	// first check file type
+	std::string fileType = GetFileType(containerFile);
+	if (fileType == "png-------")
+	{
+		OutputBinaryToImg(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.png");
+	}
+	else if (fileType == "wav-------")
+	{
+		OutputBinaryToWav(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.wav");
+	}
+	else
+	{
+		//throw exception!
+	}
+	
 	return 0;
 }
 
 //DONE
-int ParseImage(const char* filepathInterOp)
+int ParseContainer(const char* filepathInterOp)
 {
 	std::string filepath = filepathInterOp;
 	// exceptions and file checks!
-	ConvertBinaryToFile(ReadBinaryFromImg(filepath));
+	std::string fileType = GetFileType(filepath);
+	if (fileType == "png-------")
+	{
+		ConvertBinaryToFile(ReadBinaryFromImg(filepath));
+	}
+	else if (fileType == "wav-------")
+	{
+		ConvertBinaryToFile(ReadBinaryFromWav(filepath));
+	}
+	else
+	{
+		//throw exception!
+	}
 	return 0;
 }
 
@@ -247,7 +297,16 @@ int GetImgSize(const char* pathToFileInterOp)
 }
 
 //DONE
-int GetRequiredPixelsForEncode(const char* pathToFileInterOp)
+int GetWavSize(const char* pathToFileInterOp)
+{
+	std::string pathToFile = pathToFileInterOp;
+	wavio::WavFileData wavTest;
+	wavTest.ConstructFromFinstream(pathToFile);
+	return wavTest.head.chunkSize / 8;
+}
+
+//DONE
+int GetRequiredBytesForEncode(const char* pathToFileInterOp)
 {
 	std::string pathToFile = pathToFileInterOp;
 	std::ifstream finstream;
@@ -255,8 +314,8 @@ int GetRequiredPixelsForEncode(const char* pathToFileInterOp)
 	finstream.seekg(0, std::ios_base::end);
 	int size = finstream.tellg();
 	finstream.close();
-	
-	size = size * 1.35;
+
+	//bytes * 1.35 for image pixels; bytes / 20000 for audio file seconds
 
 	return size;
 

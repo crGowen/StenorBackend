@@ -1,29 +1,31 @@
 ﻿  stdafx.cpp
   dllmain.cpp
   StenorBackend.cpp
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(23): warning C4244: 'return': conversion from 'unsigned long' to 'char', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(90): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(98): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(122): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(164): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(29): warning C4244: 'return': conversion from 'unsigned long' to 'char', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(101): warning C4018: '<': signed/unsigned mismatch
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(117): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(125): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(149): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(193): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
           with
           [
               _Tp=uchar
           ]
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(173): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(202): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
           with
           [
               _Tp=uchar
           ]
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(181): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(210): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
           with
           [
               _Tp=uchar
           ]
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(226): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(229): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(228): warning C4018: '<': signed/unsigned mismatch
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(234): warning C4244: '=': conversion from 'unsigned long' to 'unsigned short', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(315): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
      Creating library C:\Users\Carl\source\repos\StenorBackend\x64\Release\StenorBackend.lib and object C:\Users\Carl\source\repos\StenorBackend\x64\Release\StenorBackend.exp
   Generating code
-  All 448 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 491 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   StenorBackend.vcxproj -> C:\Users\Carl\source\repos\StenorBackend\x64\Release\StenorBackend.dll
