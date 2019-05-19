@@ -23,7 +23,8 @@ c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(210): w
           ]
 c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(228): warning C4018: '<': signed/unsigned mismatch
 c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(234): warning C4244: '=': conversion from 'unsigned long' to 'unsigned short', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(315): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(295): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(317): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
      Creating library C:\Users\Carl\source\repos\StenorBackend\x64\Release\StenorBackend.lib and object C:\Users\Carl\source\repos\StenorBackend\x64\Release\StenorBackend.exp
   Generating code
   All 491 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.

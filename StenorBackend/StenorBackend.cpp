@@ -289,9 +289,10 @@ int ParseContainer(const char* filepathInterOp)
 //DONE
 int GetImgSize(const char* pathToFileInterOp)
 {
+	//returns number of bytes that the image can store
 	std::string pathToFile = pathToFileInterOp;
 	cv::Mat img = cv::imread(pathToFile, cv::IMREAD_COLOR);
-	return img.cols * img.rows;
+	return img.cols * img.rows * 0.75;
 
 	// if error, return 0
 }
@@ -299,6 +300,7 @@ int GetImgSize(const char* pathToFileInterOp)
 //DONE
 int GetWavSize(const char* pathToFileInterOp)
 {
+	// returns the number of bytes the wav file can store
 	std::string pathToFile = pathToFileInterOp;
 	wavio::WavFileData wavTest;
 	wavTest.ConstructFromFinstream(pathToFile);
