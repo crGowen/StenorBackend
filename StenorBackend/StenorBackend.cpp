@@ -315,9 +315,9 @@ int GetRequiredBytesForEncode(const char* pathToFileInterOp)
 	int size = finstream.tellg();
 	finstream.close();
 
-	//bytes * 1.35 for image pixels; bytes / 20000 for audio file seconds
+	//required bytes for encoding: bytes * 1.35 for number of image pixels; bytes / 20000 for audio file seconds
 
-	return size;
+	return size + 14;
 
 	// if error, return 0
 }
