@@ -2,29 +2,29 @@
   dllmain.cpp
   StenorBackend.cpp
 c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(29): warning C4244: 'return': conversion from 'unsigned long' to 'char', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(101): warning C4018: '<': signed/unsigned mismatch
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(117): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(125): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(149): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(193): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(117): warning C4018: '<': signed/unsigned mismatch
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(138): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(146): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(169): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(218): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
           with
           [
               _Tp=uchar
           ]
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(202): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(227): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
           with
           [
               _Tp=uchar
           ]
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(210): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(235): warning C4244: '=': conversion from 'unsigned long' to '_Tp', possible loss of data
           with
           [
               _Tp=uchar
           ]
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(228): warning C4018: '<': signed/unsigned mismatch
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(234): warning C4244: '=': conversion from 'unsigned long' to 'unsigned short', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(295): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(317): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(264): warning C4018: '<': signed/unsigned mismatch
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(270): warning C4244: '=': conversion from 'unsigned long' to 'unsigned short', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(354): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbackend\stenorbackend.cpp(399): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
      Creating library C:\Users\Carl\source\repos\StenorBackend\x64\Release\StenorBackend.lib and object C:\Users\Carl\source\repos\StenorBackend\x64\Release\StenorBackend.exp
   Generating code
   All 491 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.

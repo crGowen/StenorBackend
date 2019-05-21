@@ -29,87 +29,108 @@ char ConvertBinStringToChar(std::string bin)
 	return x.to_ulong();
 }
 
-//DONE
 void ConvertBinaryToFile(std::string binString)
 {
-	int size = std::bitset<32>(binString.substr(0, 32)).to_ulong();
-
-	std::string buildStr(size + 10, '2');
-
-	for (int i = 0; i < buildStr.length(); i++)
+	try
 	{
-		buildStr[i] = ConvertBinStringToChar(binString.substr(32 + i * 8, 8));
-	}
-	std::string fileType = buildStr.substr(0, 10);
-	std::string fileTypeCleaned = "";
-	buildStr.erase(0, 10);
+		int size = std::bitset<32>(binString.substr(0, 32)).to_ulong();
 
-	for (int i = 0; i < 10; i++)
+		std::string buildStr(size + 10, '2');
+
+		for (int i = 0; i < buildStr.length(); i++)
+		{
+			buildStr[i] = ConvertBinStringToChar(binString.substr(32 + i * 8, 8));
+		}
+		std::string fileType = buildStr.substr(0, 10);
+		std::string fileTypeCleaned = "";
+		buildStr.erase(0, 10);
+
+		for (int i = 0; i < 10; i++)
+		{
+			if (fileType[i] != '-') fileTypeCleaned = fileTypeCleaned + fileType[i];
+		}
+
+		//write to file
+		std::ofstream foutstream;
+		foutstream.open("./stenor_decoded." + fileTypeCleaned, std::ios::binary);
+		foutstream.write((char*)&buildStr[0], buildStr.length());
+		foutstream.close();
+	}
+	catch (std::exception e)
 	{
-		if (fileType[i] != '-') fileTypeCleaned = fileTypeCleaned + fileType[i];
+		throw 80;
 	}
-
-	//write to file
-	std::ofstream foutstream;
-	foutstream.open("./stenor_decoded." + fileTypeCleaned, std::ios::binary);
-	foutstream.write((char*)&buildStr[0], buildStr.length());
-	foutstream.close();
 }
 
-//DONE
 std::string ReadBinaryFromImg(std::string containerFile)
 {
-	cv::Mat container = cv::imread(containerFile, cv::IMREAD_COLOR);
-	std::string buildStr(container.cols * container.rows * 6, '2');
-	std::string tempBinStr = "";
-	std::bitset<8> x;
-
-	for (int i = 0; i < container.rows; i++)
+	try
 	{
-		for (int j = 0; j < container.cols; j++)
+		cv::Mat container = cv::imread(containerFile, cv::IMREAD_COLOR);
+		std::string buildStr(container.cols * container.rows * 6, '2');
+		std::string tempBinStr = "";
+		std::bitset<8> x;
+
+		for (int i = 0; i < container.rows; i++)
 		{
-			//B
-			x = container.at<cv::Vec3b>(i, j).val[0];
-			tempBinStr = x.to_string();
-			buildStr.replace((i*container.cols + j) * 6, 2, tempBinStr.substr(6, 2));
+			for (int j = 0; j < container.cols; j++)
+			{
+				//B
+				x = container.at<cv::Vec3b>(i, j).val[0];
+				tempBinStr = x.to_string();
+				buildStr.replace((i*container.cols + j) * 6, 2, tempBinStr.substr(6, 2));
 
-			//G
-			x = container.at<cv::Vec3b>(i, j).val[1];
-			tempBinStr = x.to_string();
-			buildStr.replace((i*container.cols + j) * 6 + 2, 2, tempBinStr.substr(6, 2));
+				//G
+				x = container.at<cv::Vec3b>(i, j).val[1];
+				tempBinStr = x.to_string();
+				buildStr.replace((i*container.cols + j) * 6 + 2, 2, tempBinStr.substr(6, 2));
 
-			//R
-			x = container.at<cv::Vec3b>(i, j).val[2];
-			tempBinStr = x.to_string();
-			buildStr.replace((i*container.cols + j) * 6 + 4, 2, tempBinStr.substr(6, 2));
+				//R
+				x = container.at<cv::Vec3b>(i, j).val[2];
+				tempBinStr = x.to_string();
+				buildStr.replace((i*container.cols + j) * 6 + 4, 2, tempBinStr.substr(6, 2));
+			}
 		}
-	}
 
-	return buildStr;
+		return buildStr;
+	}
+	catch (std::exception e)
+	{
+		throw 60;
+	}
 }
 
-//DONE
 std::string ReadBinaryFromWav(std::string containerFile)
 {
 	wavio::WavFileData wfile;
-	wfile.ConstructFromFinstream(containerFile);
+	try {		
+		if (!wfile.ConstructFromFinstream(containerFile))
+		{
+			wfile.DestroyDynamicVars();
+			throw 70;
+		};
 
-	std::string buildStr(wfile.head.chunkSize, '2');
-	std::string tempBinStr = "";
-	std::bitset<16> x;
+		std::string buildStr(wfile.head.chunkSize, '2');
+		std::string tempBinStr = "";
+		std::bitset<16> x;
 
-	for (int i = 0; i < wfile.head.chunkSize / 2; i++)
-	{
-		x = wfile.shortDataArray[i];
-		tempBinStr = x.to_string();
-		buildStr.replace(i*2,2, tempBinStr.substr(14, 2));
+		for (int i = 0; i < wfile.head.chunkSize / 2; i++)
+		{
+			x = wfile.shortDataArray[i];
+			tempBinStr = x.to_string();
+			buildStr.replace(i * 2, 2, tempBinStr.substr(14, 2));
+		}
+
+		wfile.DestroyDynamicVars();
+		return buildStr;
 	}
-	
-	wfile.DestroyDynamicVars();
-	return buildStr;
+	catch (std::exception e)
+	{
+		wfile.DestroyDynamicVars();
+		throw 70;
+	}
 }
 
-//DONE
 std::string GetFileType(std::string inputFile)
 {
 	std::string type = "";
@@ -130,196 +151,260 @@ std::string GetFileType(std::string inputFile)
 	}
 }
 
-//DONE
 std::string ConvertFileToBinary(std::string inputFile)
 {
 	// first check file type
 	std::string fileType = GetFileType(inputFile);
 	if (fileType == ".")
 	{
-		//throw exception
+		throw 5;
 	}
 
-	// second check if exists
-
-	// third, go to work
-	std::ifstream finstream;
-	finstream.open(inputFile, std::ios::binary);
-	finstream.seekg(0, std::ios_base::end);
-	int size = finstream.tellg();
-	std::string read(size, 'x');
-	finstream.seekg(0, std::ios_base::beg);
-	finstream.read((char*)&read[0], size);
-	finstream.close();
-
-	read = fileType + read;
-	std::string bitStr(read.length() * 8, 'x');
-	std::bitset<8> x;
-	for (int i = 0; i < read.length(); i++)
+	try
 	{
-		x = read[i];
-		bitStr.replace(i * 8, 8, x.to_string());
+		// third, go to work
+		std::ifstream finstream;
+		finstream.open(inputFile, std::ios::binary);
+		finstream.seekg(0, std::ios_base::end);
+		int size = finstream.tellg();
+		std::string read(size, 'x');
+		finstream.seekg(0, std::ios_base::beg);
+		finstream.read((char*)&read[0], size);
+		finstream.close();
+
+		read = fileType + read;
+		std::string bitStr(read.length() * 8, 'x');
+		std::bitset<8> x;
+		for (int i = 0; i < read.length(); i++)
+		{
+			x = read[i];
+			bitStr.replace(i * 8, 8, x.to_string());
+		}
+		std::bitset<32> y;
+		y = size;
+		return y.to_string() + bitStr;
 	}
-	std::bitset<32> y;
-	y = size;
-	return y.to_string() + bitStr;
+	catch (std::exception e)
+	{
+		throw 40;
+	}
 }
 
-//DONE
 void OutputBinaryToImg(std::string bin, std::string containerFile, std::string outputFile)
 {
 	// output image containing a text message
-
-	cv::Mat container = cv::imread(containerFile, cv::IMREAD_COLOR);
-
-	if (bin.length() > container.cols * container.rows * 6)
+	try
 	{
-		//throw exception
-	}
+		cv::Mat container = cv::imread(containerFile, cv::IMREAD_COLOR);
 
-	int textStep = 0;
-	std::bitset<8> x;
-	std::string tempBinStr;
-
-	for (int i = 0; i < container.rows; i++)
-	{
-		for (int j = 0; j < container.cols; j++)
+		if (bin.length() > container.cols * container.rows * 6)
 		{
-			//B
-			x = container.at<cv::Vec3b>(i, j).val[0];
-			tempBinStr = x.to_string();
-			tempBinStr = tempBinStr.substr(0, 6) + bin.substr(textStep % bin.length(), 2);
-			x = std::bitset< 8 >(tempBinStr);
-			container.at<cv::Vec3b>(i, j).val[0] = x.to_ulong();
-			textStep = textStep + 2;
-
-			//G
-
-			x = container.at<cv::Vec3b>(i, j).val[1];
-			tempBinStr = x.to_string();
-			tempBinStr = tempBinStr.substr(0, 6) + bin.substr(textStep % bin.length(), 2);
-			x = std::bitset< 8 >(tempBinStr);
-			container.at<cv::Vec3b>(i, j).val[1] = x.to_ulong();
-			textStep = textStep + 2;
-
-			//R
-			x = container.at<cv::Vec3b>(i, j).val[2];
-			tempBinStr = x.to_string();
-			tempBinStr = tempBinStr.substr(0, 6) + bin.substr(textStep % bin.length(), 2);
-			x = std::bitset< 8 >(tempBinStr);
-			container.at<cv::Vec3b>(i, j).val[2] = x.to_ulong();
-			textStep = textStep + 2;
-
+			//throw exception
 		}
+
+		int textStep = 0;
+		std::bitset<8> x;
+		std::string tempBinStr;
+
+		for (int i = 0; i < container.rows; i++)
+		{
+			for (int j = 0; j < container.cols; j++)
+			{
+				//B
+				x = container.at<cv::Vec3b>(i, j).val[0];
+				tempBinStr = x.to_string();
+				tempBinStr = tempBinStr.substr(0, 6) + bin.substr(textStep % bin.length(), 2);
+				x = std::bitset< 8 >(tempBinStr);
+				container.at<cv::Vec3b>(i, j).val[0] = x.to_ulong();
+				textStep = textStep + 2;
+
+				//G
+
+				x = container.at<cv::Vec3b>(i, j).val[1];
+				tempBinStr = x.to_string();
+				tempBinStr = tempBinStr.substr(0, 6) + bin.substr(textStep % bin.length(), 2);
+				x = std::bitset< 8 >(tempBinStr);
+				container.at<cv::Vec3b>(i, j).val[1] = x.to_ulong();
+				textStep = textStep + 2;
+
+				//R
+				x = container.at<cv::Vec3b>(i, j).val[2];
+				tempBinStr = x.to_string();
+				tempBinStr = tempBinStr.substr(0, 6) + bin.substr(textStep % bin.length(), 2);
+				x = std::bitset< 8 >(tempBinStr);
+				container.at<cv::Vec3b>(i, j).val[2] = x.to_ulong();
+				textStep = textStep + 2;
+
+			}
+		}
+		cv::imwrite(outputFile, container);
 	}
-	cv::imwrite(outputFile, container);
+	catch (std::exception e)
+	{
+		throw 20;
+	}
 }
 
-//DONE
 void OutputBinaryToWav(std::string bin, std::string containerFile, std::string outputFile)
 {
 	wavio::WavFileData wfile;
-	wfile.ConstructFromFinstream(containerFile);
-
-	int textStep = 0;
-	std::bitset<16> x;
-	std::string tempBinStr;
-
-	for (int i = 0; i < wfile.head.chunkSize / 2; i++)
+	try
 	{
-		x = wfile.shortDataArray[i];
-		tempBinStr = x.to_string();
-		tempBinStr = tempBinStr.substr(0, 14) + bin.substr(textStep % bin.length(), 2);
-		x = std::bitset< 16 >(tempBinStr);
-		wfile.shortDataArray[i] = x.to_ulong();
-		textStep = textStep + 2;
+		
+		if (!wfile.ConstructFromFinstream(containerFile))
+		{
+			wfile.DestroyDynamicVars();
+			throw 30;
+		}			
+
+		int textStep = 0;
+		std::bitset<16> x;
+		std::string tempBinStr;
+
+		for (int i = 0; i < wfile.head.chunkSize / 2; i++)
+		{
+			x = wfile.shortDataArray[i];
+			tempBinStr = x.to_string();
+			tempBinStr = tempBinStr.substr(0, 14) + bin.substr(textStep % bin.length(), 2);
+			x = std::bitset< 16 >(tempBinStr);
+			wfile.shortDataArray[i] = x.to_ulong();
+			textStep = textStep + 2;
+		}
+
+		wavio::WavFileData::OutputWavObjToFile(wfile, outputFile);
+		wfile.DestroyDynamicVars();
+	}
+	catch (std::exception e)
+	{
+		wfile.DestroyDynamicVars();
+		throw 30;
 	}
 
-	wavio::WavFileData::OutputWavObjToFile(wfile, outputFile);
+	
 
-	wfile.DestroyDynamicVars();
 }
 
 // exported functions
 
-//DONE
 int EncodeToContainer(const char* inputFileInterOp, const char* containerFileInterOp)
 {
 	std::string inputFile = inputFileInterOp;
 	std::string containerFile = containerFileInterOp;
 	// first check file type
-	std::string fileType = GetFileType(containerFile);
-	if (fileType == "png-------")
+	try
 	{
-		OutputBinaryToImg(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.png");
+		std::string fileType = GetFileType(containerFile);
+
+		if (fileType == "png-------")
+		{
+			OutputBinaryToImg(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.png");
+		}
+		else if (fileType == "wav-------")
+		{
+			OutputBinaryToWav(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.wav");
+		}
+		else
+		{
+			throw 10;
+			//throw exception!
+		}
 	}
-	else if (fileType == "wav-------")
+	catch (int eCode)
 	{
-		OutputBinaryToWav(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.wav");
-	}
-	else
-	{
-		//throw exception!
+		return eCode;
 	}
 	
 	return 0;
 }
 
-//DONE
 int ParseContainer(const char* filepathInterOp)
 {
-	std::string filepath = filepathInterOp;
-	// exceptions and file checks!
-	std::string fileType = GetFileType(filepath);
-	if (fileType == "png-------")
+	try
 	{
-		ConvertBinaryToFile(ReadBinaryFromImg(filepath));
+		std::string filepath = filepathInterOp;
+		// exceptions and file checks!
+		std::string fileType = GetFileType(filepath);
+		if (fileType == "png-------")
+		{
+			ConvertBinaryToFile(ReadBinaryFromImg(filepath));
+		}
+		else if (fileType == "wav-------")
+		{
+			ConvertBinaryToFile(ReadBinaryFromWav(filepath));
+		}
+		else
+		{
+			throw 50;
+		}
+		return 0;
 	}
-	else if (fileType == "wav-------")
+	catch (int eCode)
 	{
-		ConvertBinaryToFile(ReadBinaryFromWav(filepath));
+		return eCode;
 	}
-	else
-	{
-		//throw exception!
-	}
-	return 0;
 }
 
-//DONE
 int GetImgSize(const char* pathToFileInterOp)
 {
-	//returns number of bytes that the image can store
-	std::string pathToFile = pathToFileInterOp;
-	cv::Mat img = cv::imread(pathToFile, cv::IMREAD_COLOR);
-	return img.cols * img.rows * 0.75;
+	try
+	{
+		//returns number of bytes that the image can store
+		std::string pathToFile = pathToFileInterOp;
+		cv::Mat img = cv::imread(pathToFile, cv::IMREAD_COLOR);
+		return img.cols * img.rows * 0.75;
+	}
+	catch (std::exception e)
+	{
+		return 0;
+	}
 
 	// if error, return 0
 }
 
-//DONE
 int GetWavSize(const char* pathToFileInterOp)
 {
-	// returns the number of bytes the wav file can store
-	std::string pathToFile = pathToFileInterOp;
 	wavio::WavFileData wavTest;
-	wavTest.ConstructFromFinstream(pathToFile);
-	return wavTest.head.chunkSize / 8;
+	try
+	{
+		// returns the number of bytes the wav file can store
+		std::string pathToFile = pathToFileInterOp;
+		
+		if (wavTest.ConstructFromFinstream(pathToFile))
+		{
+			wavTest.DestroyDynamicVars();
+			return wavTest.head.chunkSize / 8;
+		}
+			
+		else
+		{
+			wavTest.DestroyDynamicVars();
+			return 0;
+		}
+			
+	}
+	catch (std::exception e)
+	{
+		wavTest.DestroyDynamicVars();
+		return 0;
+	}
 }
 
-//DONE
 int GetRequiredBytesForEncode(const char* pathToFileInterOp)
 {
-	std::string pathToFile = pathToFileInterOp;
-	std::ifstream finstream;
-	finstream.open(pathToFile, std::ios::binary);
-	finstream.seekg(0, std::ios_base::end);
-	int size = finstream.tellg();
-	finstream.close();
+	try {
+		std::string pathToFile = pathToFileInterOp;
+		std::ifstream finstream;
+		finstream.open(pathToFile, std::ios::binary);
+		finstream.seekg(0, std::ios_base::end);
+		int size = finstream.tellg();
+		finstream.close();
 
-	//required bytes for encoding: bytes * 1.35 for number of image pixels; bytes / 20000 for audio file seconds
+		//required bytes for encoding: bytes * 1.35 for number of image pixels; bytes / 20000 for audio file seconds
 
-	return size + 14;
-
-	// if error, return 0
+		return size + 14;
+	}
+	catch (std::exception e)
+	{
+		return 0;
+	}
 }
