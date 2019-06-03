@@ -271,7 +271,7 @@ void OutputBinaryToWav(std::string bin, std::string containerFile, std::string o
 			textStep = textStep + 2;
 		}
 
-		wavio::WavFileData::OutputWavObjToFile(wfile, outputFile);
+		wfile.OutputWavObjToFile(outputFile);
 		wfile.DestroyDynamicVars();
 	}
 	catch (std::exception e)
