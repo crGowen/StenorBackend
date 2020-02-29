@@ -22,7 +22,13 @@
 
 // non-exported functions
 
-//DONE
+std::string StringToLower(std::string str) {
+	for (int i = 0; i < str.length(); i++) {
+		str[i] = std::tolower(str[i]);
+	}
+	return str;
+}
+
 char ConvertBinStringToChar(std::string bin)
 {
 	std::bitset<8> x = std::bitset<8>(bin);
@@ -295,11 +301,11 @@ int EncodeToContainer(const char* inputFileInterOp, const char* containerFileInt
 	{
 		std::string fileType = GetFileType(containerFile);
 
-		if (fileType == "png-------")
+		if (StringToLower(fileType) == "png-------")
 		{
 			OutputBinaryToImg(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.png");
 		}
-		else if (fileType == "wav-------")
+		else if (StringToLower(fileType) == "wav-------")
 		{
 			OutputBinaryToWav(ConvertFileToBinary(inputFile), containerFile, "./stenor_encoded.wav");
 		}
