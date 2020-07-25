@@ -3,9 +3,7 @@
 c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(52): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
 c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(111): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(200): warning C4297: 'DecodeFromImg': function assumed not to throw an exception but does
-  c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(200): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
-c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(251): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(253): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(16707566): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(16707566): note: see reference to function template instantiation 'void std::_Invoker_functor::_Call<void(__cdecl *)(int,int),_Ty,_Ty>(_Callable &&,_Ty &&,_Ty &&) noexcept(false)' being compiled
           with

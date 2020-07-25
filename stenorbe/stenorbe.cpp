@@ -197,7 +197,7 @@ __int32 DecodeFromImg(const char* containerFile) {
 			}
 		}
 
-		if (binStrOffset != 12) throw 60;
+		if (binStrOffset != 12) return 60;
 
 		std::string fileType = "";
 
@@ -207,6 +207,8 @@ __int32 DecodeFromImg(const char* containerFile) {
 		}
 
 		__int32 dataSize =  *reinterpret_cast<__int32*>(&str[8]);
+
+		if (dataSize <= 0 || dataSize > GetImgBytesStorable(containerFile)) return 60;
 
 		// PREPARATION OVER!
 
