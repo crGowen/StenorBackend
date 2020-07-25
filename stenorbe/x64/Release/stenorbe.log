@@ -1,0 +1,61 @@
+﻿  stdafx.cpp
+  stenorbe.cpp
+c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(52): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(111): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(200): warning C4297: 'DecodeFromImg': function assumed not to throw an exception but does
+  c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(200): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(251): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(16707566): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(16707566): note: see reference to function template instantiation 'void std::_Invoker_functor::_Call<void(__cdecl *)(int,int),_Ty,_Ty>(_Callable &&,_Ty &&,_Ty &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=unsigned __int64,
+              _Callable=void (__cdecl *)(int,int)
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\thr\xthread(237): note: see reference to function template instantiation 'void std::invoke<void(__cdecl *)(int,int),unsigned __int64,unsigned __int64>(_Callable &&,unsigned __int64 &&,unsigned __int64 &&) noexcept(false)' being compiled
+          with
+          [
+              _Callable=void (__cdecl *)(int,int)
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\thr\xthread(246): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Execute<0,1,2>(std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64> &,std::integer_sequence<unsigned __int64,0,1,2>)' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,std::default_delete<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\thr\xthread(245): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Execute<0,1,2>(std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64> &,std::integer_sequence<unsigned __int64,0,1,2>)' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,std::default_delete<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\thr\xthread(242): note: while compiling class template member function 'void std::_LaunchPad<_Target>::_Run(std::_LaunchPad<_Target> *) noexcept'
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,std::default_delete<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\thr\xthread(230): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Run(std::_LaunchPad<_Target> *) noexcept' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,std::default_delete<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\thr\xthread(257): note: see reference to class template instantiation 'std::_LaunchPad<_Target>' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,std::default_delete<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\thread(46): note: see reference to function template instantiation 'void std::_Launch<std::unique_ptr<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,std::default_delete<_Ty>>>(_Thrd_t *,_Target &&)' being compiled
+          with
+          [
+              _Ty=std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>,std::default_delete<std::tuple<void (__cdecl *)(int,int),unsigned __int64,unsigned __int64>>>
+          ]
+  c:\users\carl\source\repos\stenorbackend\stenorbe\stenorbe.cpp(119): note: see reference to function template instantiation 'std::thread::thread<void(__cdecl &)(int,int),unsigned __int64,unsigned __int64,void>(_Fn,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Fn=void (__cdecl &)(int,int)
+          ]
+     Creating library C:\Users\Carl\source\repos\StenorBackend\x64\Release\stenorbe.lib and object C:\Users\Carl\source\repos\StenorBackend\x64\Release\stenorbe.exp
+  Generating code
+  All 539 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  stenorbe.vcxproj -> C:\Users\Carl\source\repos\StenorBackend\x64\Release\stenorbe.dll
